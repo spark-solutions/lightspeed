@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.description   = %q{Wrapper gem for the Lightspeed POS API}
   spec.summary       = spec.description
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage      = "https://github.com/ZincPlatform/lightspeed"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
