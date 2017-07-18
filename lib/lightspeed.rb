@@ -1,5 +1,3 @@
 require "lightspeed/version"
+require "lightspeed/client"
 
-module Lightspeed
-  # Your code goes here...
-end
