@@ -5,20 +5,21 @@ module Lightspeed
   class Client
     API_BASE = "https://api.merchantos.com/API/"
 
-    attr_reader :client_id, :client_secret, :access_token, :refresh_token
+    attr_reader :access_token, :account_id
 
-    def initialize(client_id:, client_secret:, access_token:, refresh_token:)
-      @client_id = client_id
-      @client_secret = client_secret
+    def self.tokens(client_id:, client_secret:, refresh_token:)
+      API::Tokens.new(client_id, client_secret, refresh_token)
+    end
+
+    def initialize(access_token:, account_id:)
       @access_token = access_token
-      @refresh_token = refresh_token
+      @account_id = account_id
     end
 
     def get(url, params: {})
       conn.get(url, params)
     end
 
-    def tokens; API::Tokens.new(self); end
     def accounts; API::Accounts.new(self); end
 
     private

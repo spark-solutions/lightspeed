@@ -5,8 +5,10 @@ module Lightspeed
     class Tokens
       REFRESH_TOKEN_URL = "https://cloud.merchantos.com/oauth/access_token.php"
 
-      def initialize(client)
-        @client = client
+      def initialize(client_id, client_secret, refresh_token)
+        @client_id = client_id
+        @client_secret = client_secret
+        @refresh_token = refresh_token
       end
 
       def refresh
@@ -14,9 +16,9 @@ module Lightspeed
 
         response = Faraday.post(
           REFRESH_TOKEN_URL,
-          refresh_token: client.refresh_token,
-          client_id: client.client_id,
-          client_secret: client.client_secret,
+          refresh_token: refresh_token,
+          client_id: client_id,
+          client_secret: client_secret,
           grant_type: "refresh_token",
         )
 
@@ -25,7 +27,7 @@ module Lightspeed
 
       private
 
-      attr_reader :client
+      attr_reader :client_id, :client_secret, :refresh_token
     end
   end
 end
