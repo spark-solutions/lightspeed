@@ -9,7 +9,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'lightspeed'
+gem "lightspeed_ruby", require: "lightspeed"
 ```
 
 And then execute:
@@ -18,17 +18,35 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install lightspeed
+    $ gem install lightspeed_ruby
 
 ## Usage
 
-TODO: Write usage instructions here
+Lightspeed ruby follows a namespacing pattern, in which every layer of the
+Lightspeed's API creates a new namespace.
 
-## Development
+### Items
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+**Find an item**
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+client.items.find("20")
+```
+
+**Create an item**
+
+```ruby
+client.items.create(description: "blah blah", itemType: "non_inventory")
+```
+
+### Relations
+
+Whenever the API allows it, you can ask for certain relations to be sideloaded.
+For example, you may wish to get the category of an item.
+
+```ruby
+client.items.find("20", with: [:category])
+```
 
 ## Contributing
 
