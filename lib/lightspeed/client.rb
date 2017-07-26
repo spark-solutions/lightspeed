@@ -1,5 +1,9 @@
 require "lightspeed/api/tokens"
 require "lightspeed/api/accounts"
+require "lightspeed/api/sales"
+require "lightspeed/api/customers"
+require "lightspeed/api/items"
+require "lightspeed/api/categories"
 
 module Lightspeed
   class Client
@@ -16,11 +20,19 @@ module Lightspeed
       @account_id = account_id
     end
 
-    def get(url, params: {})
-      conn.get(url, params)
+    def get(url, params: {}, relations: [])
+      conn.get(url, params.merge(load_relations: "[#{relation_names(relations)}]"))
+    end
+
+    def post(url, body: {})
+      conn.post(url, body)
     end
 
     def accounts; API::Accounts.new(self); end
+    def sales; API::Sales.new(self); end
+    def customers; API::Customers.new(self); end
+    def items; API::Items.new(self); end
+    def categories; API::Categories.new(self); end
 
     private
 
@@ -31,6 +43,12 @@ module Lightspeed
         f.response :json, :content_type => /\bjson$/
         f.adapter Faraday.default_adapter
       end
+    end
+
+    def relation_names(relations)
+      relations.map do |relation|
+        "\"#{relation.to_s.camelize}\""
+      end.join(",")
     end
   end
 end
