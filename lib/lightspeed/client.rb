@@ -28,6 +28,10 @@ module Lightspeed
       conn.post(url, body)
     end
 
+    def delete(url)
+      conn.delete(url)
+    end
+
     def accounts; API::Accounts.new(self); end
     def sales; API::Sales.new(self); end
     def customers; API::Customers.new(self); end

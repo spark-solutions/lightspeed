@@ -9,6 +9,10 @@ module Lightspeed
 
       def sale_lines; API::Sales::SaleLines.new(client); end
 
+      def find(sale_id, with: [])
+        client.get("Account/#{client.account_id}/Sale/#{sale_id}.json", relations: with).body
+      end
+
       private
 
       attr_reader :client
