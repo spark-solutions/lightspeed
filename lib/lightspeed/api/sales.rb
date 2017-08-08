@@ -13,6 +13,10 @@ module Lightspeed
         client.get("Account/#{client.account_id}/Sale/#{sale_id}.json", relations: with).body
       end
 
+      def update(sale_id, attributes = {})
+        client.put("Account/#{client.account_id}/Sale/#{sale_id}.json", body: attributes).body
+      end
+
       private
 
       attr_reader :client
