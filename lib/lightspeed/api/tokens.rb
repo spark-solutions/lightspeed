@@ -12,7 +12,7 @@ module Lightspeed
       end
 
       def refresh
-        raise Lightspeed::Errors::MissingRefreshToken unless client.refresh_token
+        raise Lightspeed::Errors::MissingRefreshToken unless refresh_token
 
         response = Faraday.post(
           REFRESH_TOKEN_URL,
